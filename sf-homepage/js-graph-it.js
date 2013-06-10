@@ -139,13 +139,13 @@ function startDrag(e)
 	if(eventSource.tagName == 'HTML')
 		return;
 
-	while (eventSource != document.body && !hasClass(eventSource, "draggable"))
+	while (eventSource != document.body && !(hasClass(eventSource, "draggable") && !hasClass(eventSource, "container")))
 	{  	
 		eventSource = nn6 ? eventSource.parentNode : eventSource.parentElement;
 	}
 
 	// if a draggable element was found, calculate its actual position
-	if (hasClass(eventSource, "draggable"))
+	if (hasClass(eventSource, "draggable") && !hasClass(eventSource, "container"))
 	{
 		isdrag = true;
 		elementToMove = eventSource;
@@ -235,6 +235,7 @@ function Canvas(htmlElement)
 	this.id = htmlElement.id;
 	this.htmlElement = htmlElement;
 	this.blocks = new Array();
+    this.containers = new Array();
 	this.connectors = new Array();
 	this.offsetLeft = calculateOffsetLeft(this.htmlElement);
 	this.offsetTop = calculateOffsetTop(this.htmlElement);	
@@ -321,6 +322,10 @@ function Canvas(htmlElement)
 			var newBlock = new Block(element, this);
 			newBlock.initBlock();
 			this.blocks.push(newBlock);
+//            if(isContainer(element)) // moreover it is a container
+//            {
+//                var newContainer = new Container(element, this);
+//            }
 			return false;
 		}
 		else if(isConnector(element))
