@@ -85,9 +85,6 @@
 					<li><a href="index.html">overview</a></li>
 					<li><a href="story.html">story of this project</a></li>
 					<li><a href="gettingstarted.html">getting started</a></li>
-					<li><a href="http://sourceforge.net/forum/?group_id=170245">forum</a></li>
-					<li><a href="http://sourceforge.net/tracker/?group_id=170245&atid=853532">bugs</a></li>
-					<li><a href="http://sourceforge.net/projects/js-graph-it/">download</a></li>
 				</ul>
 			</td>
 			<td style="vertical-align: top; padding: 0px;">
@@ -96,8 +93,7 @@
 
 <h1 id="title_block" class="block draggable" style="left: 30px; top: 20px;">Getting started</h1>
 
-<h2 id="subtitle_block" class="block draggable" 
-style="left: 280px; top: 40px; padding-left: 10px; padding-right: 10px; width: 550px;">The connector's ends</h2>
+<h2 id="subtitle_block" class="block draggable" style="left: 280px; top: 40px; padding-left: 10px; padding-right: 10px; width: 550px;">Drag and drop</h2>
 
 <div class="connector title_block subtitle_block">
 	<img class="connector-end" src="arrow.gif">
@@ -116,93 +112,46 @@ style="left: 280px; top: 40px; padding-left: 10px; padding-right: 10px; width: 5
 	&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="canvas" id="mainCanvas"<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;style="width: 350px; height: 250px; border: 1px solid black;"&gt;<br>
 
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1 class="block draggable" id="h1_block"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1 class="block <span class="highlighter block" id="draggable_class_1">draggable</span>" id="h1_block"<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;style="left: 10px; top: 10px;"&gt;<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;h1 block<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/h1&gt;<br>
 
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2 class="block draggable" id="h2_block"<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2 class="block <span class="highlighter block" id="draggable_class_2">draggable</span>" id="h2_block"<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;style="left: 200px; top: 100px;"&gt;<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;h2 block<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/h2&gt;<br>
 
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="connector h1_block h2_block"&gt;
-<div class="highlighter block" id="start_tag">
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img <span class="highlighter block" id="src_1">src="arrow.gif"</span> class="<span class="highlighter block" id="start_class">connector-start</span>"&gt;
-</div>
-<div class="highlighter block" id="end_tag">
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img <span class="highlighter block" id="src_2">src="arrow.gif"</span> class="<span class="highlighter block" id="end_class">connector-end</span>"&gt;
-</div>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="connector h1_block h2_block"&gt;&lt;/div&gt;<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
 	&nbsp;&nbsp;&lt;/body&gt;<br>
 	&lt;/html&gt;
 </div>
 
-<div class="block draggable" id="images_descr" style="width: 200px; top: 100px; left: 30px;">
-<p>It is possible to add an image at each end of a connector to give it an "arrow" style. To do this, we first
-have to create 5 images because there is no way to rotate an image using javascript.</p>
-<p>The first image must be the original one, this is needed because otherwise the browser can hang searching
-for it. The other 4 images must be the ones to use in each of the four directions and the 4 files must be
-named as the original image with the suffixes "_u", "_d", "_l", "_r" standing for "up", "down", "left" and "right"
-appended to the file name (<strong>not the extension!</strong>).</p>
-</div>
-
-<div class="block draggable" id="images_descr_2" style="width: 200px; top: 380px; left: 30px;">
-The image we will use in this sample is named "arrow.gif", then the four files to be provided must be:
-<ol>
-	<li>arrow.gif</li>
-	<li>arrow_u.gif</li>
-	<li>arrow_d.gif</li>
-	<li>arrow_l.gif</li>
-	<li>arrow_r.gif</li>
-</ol>
-You can copy these files from this tutorial.
-</div>
-
-<p class="block draggable" id="img_tag_descr" style="width: 200px; top: 560px; left: 30px;">
-Ones the image files have been provided, we can add the connector's ends by adding two <code>img</code>
-elements.
+<p class="block draggable" id="draggable_class_descr" style="width: 200px; top: 309px; left: 30px;">
+Activating drag and drop on the blocks is very simple: just add the <code>draggable</code> class to them.
 </p>
 
-<div class="connector img_tag_descr start_tag">
+<div class="connector draggable_class_descr draggable_class_1">
 	<img class="connector-end" src="arrow.gif">
 </div>
 
-<div class="connector img_tag_descr end_tag">
+<div class="connector draggable_class_descr draggable_class_2">
 	<img class="connector-end" src="arrow.gif">
 </div>
 
-<p class="block draggable" id="src_descr" style="width: 200px; top: 650px; left: 80px;">
-The source of the images must be the original image file.
-</p>
-
-<div class="connector src_descr src_1 right_start">
-	<img class="connector-end" src="arrow.gif">
-</div>
-
-<div class="connector src_descr src_2 right_start">
-	<img class="connector-end" src="arrow.gif">
-</div>
-
-<p class="block draggable" id="start_descr" style="width: 200px; top: 590px; left: 410px;">
-The <code>connector-start</code> and <code>connector-end</code> classes indicate that the element is to be
-added at the start or the end of the connector, respectively.
-</p>
-
-<div class="connector start_descr start_class right_start left_end">
-	<img class="connector-end" src="arrow.gif">
-</div>
-
-<div class="connector start_descr end_class right_start left_end">
-	<img class="connector-end" src="arrow.gif">
+<div class="block draggable" id="draggable_class_descr" style="width: 200px; top: 500px; left: 30px;">
+<p>The <code>draggable</code> class can be applied to any element in an html page... A little bonus that
+comes with <dfn>js-graph-it</dfn>.</p>
+<p>Just a note: draggable elements must have absolute positioning and
+they cannot be dragged outside the bounds of their parent element (as it happens with the canvas).</p>
 </div>
 
 <div class="block draggable" style="bottom: 10px; right: 130px; width: 80px;">
-	<a href="gettingstarted_5.html">&laquo; previous</a></div>
+	<a href="gettingstarted_4.html">&laquo; previous</a></div>
 
 <div class="block draggable" style="bottom: 10px; right: 30px; width: 80px; text-align: right;">
-	<a href="gettingstarted_7.html">next &raquo;</a></div>
+	<a href="gettingstarted_6.html">next &raquo;</a></div>
 				</div>
 			</td>
 		</tr>

@@ -85,9 +85,6 @@
 					<li><a href="index.html">overview</a></li>
 					<li><a href="story.html">story of this project</a></li>
 					<li><a href="gettingstarted.html">getting started</a></li>
-					<li><a href="http://sourceforge.net/forum/?group_id=170245">forum</a></li>
-					<li><a href="http://sourceforge.net/tracker/?group_id=170245&atid=853532">bugs</a></li>
-					<li><a href="http://sourceforge.net/projects/js-graph-it/">download</a></li>
 				</ul>
 			</td>
 			<td style="vertical-align: top; padding: 0px;">
@@ -97,7 +94,7 @@
 <h1 id="title_block" class="block draggable" style="left: 30px; top: 20px;">Getting started</h1>
 
 <h2 id="subtitle_block" class="block draggable" 
-style="left: 280px; top: 40px; padding-left: 10px; padding-right: 10px; width: 550px;">The connector's labels</h2>
+style="left: 280px; top: 40px; padding-left: 10px; padding-right: 10px; width: 550px;">The connector's ends</h2>
 
 <div class="connector title_block subtitle_block">
 	<img class="connector-end" src="arrow.gif">
@@ -126,20 +123,12 @@ style="left: 280px; top: 40px; padding-left: 10px; padding-right: 10px; width: 5
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;h2 block<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/h2&gt;<br>
 
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="connector h1_block h2_block"&gt;<br>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="arrow.gif" class="connector-start"&gt;<br>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="arrow.gif" class="connector-end"&gt;
-<div class="highlighter block" id="source_label">
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label 
-	<span class="highlighter block" id="source_class">class="source-label"</span>&gt;start&lt;/label&gt;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="connector h1_block h2_block"&gt;
+<div class="highlighter block" id="start_tag">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img <span class="highlighter block" id="src_1">src="arrow.gif"</span> class="<span class="highlighter block" id="start_class">connector-start</span>"&gt;
 </div>
-<div class="highlighter block" id="middle_label">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label 
-    <span class="highlighter block" id="middle_class">class="middle-label"</span>&gt;middle&lt;/label&gt;
-</div>
-<div class="highlighter block" id="destination_label">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label 
-    <span class="highlighter block" id="destination_class">class="destination-label"</span>&gt;end&lt;/label&gt;
+<div class="highlighter block" id="end_tag">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img <span class="highlighter block" id="src_2">src="arrow.gif"</span> class="<span class="highlighter block" id="end_class">connector-end</span>"&gt;
 </div>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
@@ -147,64 +136,70 @@ style="left: 280px; top: 40px; padding-left: 10px; padding-right: 10px; width: 5
 	&lt;/html&gt;
 </div>
 
-<div class="block draggable" id="labels_descr" style="width: 200px; top: 100px; left: 30px;">
-The task now is to add labels on the connector. It is possible to add 3 labels on each connector:
-<ul>
-	<li>the source label, anchored near the source block</li>
-	<li>the middle label, anchored in the middle of the connector</li>
-	<li>the destination label, anchored near the destination block</li>
-</ul>
+<div class="block draggable" id="images_descr" style="width: 200px; top: 100px; left: 30px;">
+<p>It is possible to add an image at each end of a connector to give it an "arrow" style. To do this, we first
+have to create 5 images because there is no way to rotate an image using javascript.</p>
+<p>The first image must be the original one, this is needed because otherwise the browser can hang searching
+for it. The other 4 images must be the ones to use in each of the four directions and the 4 files must be
+named as the original image with the suffixes "_u", "_d", "_l", "_r" standing for "up", "down", "left" and "right"
+appended to the file name (<strong>not the extension!</strong>).</p>
 </div>
 
-<div class="block draggable" id="tags_descr" style="width: 200px; top: 420px; left: 30px;">
-A connector label can be any html element nested in the connector element.
-In this sample we'll use three <code>label</code> elements (just because of the element's name).
+<div class="block draggable" id="images_descr_2" style="width: 200px; top: 380px; left: 30px;">
+The image we will use in this sample is named "arrow.gif", then the four files to be provided must be:
+<ol>
+	<li>arrow.gif</li>
+	<li>arrow_u.gif</li>
+	<li>arrow_d.gif</li>
+	<li>arrow_l.gif</li>
+	<li>arrow_r.gif</li>
+</ol>
+You can copy these files from this tutorial.
 </div>
 
-<div class="connector tags_descr source_label">
+<p class="block draggable" id="img_tag_descr" style="width: 200px; top: 560px; left: 30px;">
+Ones the image files have been provided, we can add the connector's ends by adding two <code>img</code>
+elements.
+</p>
+
+<div class="connector img_tag_descr start_tag">
 	<img class="connector-end" src="arrow.gif">
 </div>
 
-<div class="connector tags_descr middle_label">
+<div class="connector img_tag_descr end_tag">
 	<img class="connector-end" src="arrow.gif">
 </div>
 
-<div class="connector tags_descr destination_label">
+<p class="block draggable" id="src_descr" style="width: 200px; top: 650px; left: 80px;">
+The source of the images must be the original image file.
+</p>
+
+<div class="connector src_descr src_1 right_start">
 	<img class="connector-end" src="arrow.gif">
 </div>
 
-<div class="block draggable" id="source_class_descr" style="width: 200px; top: 550px; left: 30px;">
-To declare that an element must be used as the source label, we add the <code>source-label</code>
-css class to it.
-</div>
-
-<div class="connector source_class_descr source_class">
+<div class="connector src_descr src_2 right_start">
 	<img class="connector-end" src="arrow.gif">
 </div>
 
-<div class="block draggable" id="middle_class_descr" style="width: 200px; top: 640px; left: 80px;">
-To declare that an element must be used as the middle label, we add the <code>middle-label</code>
-css class to it.
-</div>
+<p class="block draggable" id="start_descr" style="width: 200px; top: 590px; left: 410px;">
+The <code>connector-start</code> and <code>connector-end</code> classes indicate that the element is to be
+added at the start or the end of the connector, respectively.
+</p>
 
-<div class="connector middle_class_descr middle_class">
+<div class="connector start_descr start_class right_start left_end">
 	<img class="connector-end" src="arrow.gif">
 </div>
 
-<div class="block draggable" id="destination_class_descr" style="width: 200px; top: 730px; left: 130px;">
-Finally, to declare that an element must be used as the destination label, we use the <code>destination-label</code>
-css class.
-</div>
-
-<div class="connector destination_class_descr destination_class">
+<div class="connector start_descr end_class right_start left_end">
 	<img class="connector-end" src="arrow.gif">
 </div>
 
 <div class="block draggable" style="bottom: 10px; right: 130px; width: 80px;">
-	<a href="gettingstarted_6.html">&laquo; previous</a></div>
+	<a href="gettingstarted_5.html">&laquo; previous</a></div>
 
 <div class="block draggable" style="bottom: 10px; right: 30px; width: 80px; text-align: right;">
-	<a href="gettingstarted_8.html">next &raquo;</a></div>
+	<a href="gettingstarted_7.html">next &raquo;</a></div>
 				</div>
 			</td>
 		</tr>
