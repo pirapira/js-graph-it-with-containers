@@ -139,13 +139,13 @@ function startDrag(e)
 	if(eventSource.tagName == 'HTML')
 		return;
 
-	while (eventSource != document.body && !(hasClass(eventSource, "draggable") && !hasClass(eventSource, "container")))
+	while (eventSource != document.body && !isDraggable(eventSource))
 	{  	
 		eventSource = nn6 ? eventSource.parentNode : eventSource.parentElement;
 	}
 
 	// if a draggable element was found, calculate its actual position
-	if (hasClass(eventSource, "draggable") && !hasClass(eventSource, "container"))
+	if (isDraggable(eventSource))
 	{
 		isdrag = true;
 		elementToMove = eventSource;
@@ -322,10 +322,11 @@ function Canvas(htmlElement)
 			var newBlock = new Block(element, this);
 			newBlock.initBlock();
 			this.blocks.push(newBlock);
-//            if(isContainer(element)) // moreover it is a container
-//            {
+            if(isContainer(element)) // moreover it is a container
+            {
 //                var newContainer = new Container(element, this);
-//            }
+//                this.containers.push(newContainer);
+            }
 			return false;
 		}
 		else if(isConnector(element))
@@ -1243,6 +1244,16 @@ function findBlock(blockId)
 function isBlock(htmlElement)
 {
 	return hasClass(htmlElement, 'block');
+}
+
+function isDraggable(htmlElement)
+{
+    return (hasClass(htmlElement, 'draggable') && !hasClass(htmlElement, 'container'));
+}
+
+function isContainer(htmlElement)
+{
+    return (hasClass(htmlElement, 'block') && hasClass(htmlElement, 'container'));
 }
 
 /*
