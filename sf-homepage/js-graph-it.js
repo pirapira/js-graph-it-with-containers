@@ -299,6 +299,12 @@ function Canvas(htmlElement)
 		
 		this.innerDiv.style.width = this.width + "px";
 		this.innerDiv.style.height = this.height + "px";
+
+        // init containers
+        for(i = 0; i < this.containers.length; i++)
+        {
+            this.containers[i].initContainer();
+        }
 		
 		// init connectors
 		for(i = 0; i < this.connectors.length; i++)
@@ -322,13 +328,14 @@ function Canvas(htmlElement)
 			var newBlock = new Block(element, this);
 			newBlock.initBlock();
 			this.blocks.push(newBlock);
-            if(isContainer(element)) // moreover it is a container
-            {
-//                var newContainer = new Container(element, this);
-//                this.containers.push(newContainer);
-            }
 			return false;
 		}
+        else if(isContainer(element))
+        {
+            // container found, just create it, not calling init yet.
+            var newContainer = new Container(element, this);
+            this.containers.push(newContainer);
+        }
 		else if(isConnector(element))
 		{
 			// connector found, just create it, source or destination blocks may not 
@@ -655,6 +662,94 @@ function Segment(id, parentElement)
 		if(this.nextSegment)
 			this.nextSegment.cascadeHide();
 	}
+}
+/**
+ * Container class
+ * The init function takes at least one Block objects as arguments representing 
+ * the contents of the container
+ */
+function Container(htmlElement, canvas)
+{
+    this.canvas = canvas;
+    this.htmlElement = htmlElement;
+    this.id = htmlElement.id;
+    this.blocks = new Array(); // the catch is, the blocks are not necessarily html Children.
+    this.moveListeners = new Array(); // would be just connectors
+
+    // no visit.
+
+    this.initContainer = function()
+    {
+        this.id = this.htmlElement.id;
+
+        var splitted = htmlElement.className.split(' ');
+        if(splitted.length < 2)
+        {
+            alert('Unable to create container \'' + this.id + '\', class is not in the correct format: container <BlockId> <BlockId> ... ');
+        }
+
+        for(i = 1; i < splitted.length; i++)
+        {
+            this.blocks.push(this.canvas.findBlock(splitted[i]));
+        }
+
+        this.repaint();
+
+        for(i = 0; i < this.blocks.length; i++)
+        {
+            this.blocks[i].moveListeners.push(this);
+        }
+    }
+
+    this.padding = 5;
+    this.repaint = function()
+    {
+        // calculate the min-max x-y
+
+        b = this.blocks[0];
+        toppy = b.top() - this.padding;
+        left = b.left() - this.padding;
+        w = b.width() + this.padding + this.padding;
+        h = b.height() + this.padding + this.padding;
+        dow = toppy + h;
+        rig = left + w;
+
+        for(i = 1; i < this.blocks.length; i ++)
+        {
+            b = this.blocks[i];
+            t_n = b.top() - this.padding;
+            if(toppy > t_n)
+                toppy = t_n;
+            l_n = b.left() - this.padding;
+            if(left > l_n)
+                left = l_n;
+            dow_n = b.height() + this.padding + this.padding + t_n;
+            if(dow < dow_n)
+                dow = dow_n;
+            right_n = b.width() + this.padding + this.padding + l_n;
+            if(rig < right_n)
+                rig = right_n;
+        }
+
+        //        toppy = toppy + this.canvas.offsetTop;
+        // left = left + this.canvas.offsetLeft;
+        this.htmlElement.style.position = "absolute";
+        this.htmlElement.style.top = toppy + "px";
+        this.htmlElement.style.left = left + "px";
+        this.htmlElement.style.height = (dow - toppy) + "px";
+        this.htmlElement.style.width = (rig - left) + "px";
+        this.htmlElement.style.zIndex = "1";
+        // this.currentWidth;
+        // this.currentHeight;
+
+        // XXX
+    }
+
+    this.onMove = function()
+    {
+        this.repaint();
+    }
+
 }
 /**
  * Connector class.
@@ -1253,7 +1348,7 @@ function isDraggable(htmlElement)
 
 function isContainer(htmlElement)
 {
-    return (hasClass(htmlElement, 'block') && hasClass(htmlElement, 'container'));
+    return (hasClass(htmlElement, 'container'));
 }
 
 /*
