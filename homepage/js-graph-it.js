@@ -382,7 +382,23 @@ function Canvas(htmlElement)
 		
 		return result;
 	}
-	
+
+	this.findBlockOrContainer = function(blockId)
+	{
+		var result;
+		var i;
+		for(i = 0; i < this.blocks.length && !result; i++)
+		{
+			result = this.blocks[i].findBlock(blockId);
+		}
+		for(i = 0; i < this.containers.length && !result; i++)
+		{
+			result = this.containers[i].findContainer(blockId);
+		}
+
+		return result;
+	}
+
 	this.toString = function()
 	{
 		return 'canvas: ' + this.id;		
@@ -701,6 +717,28 @@ function Container(htmlElement, canvas)
         }
     }
 
+    this.top = function()
+	{
+		return this.currentTop;
+	}
+	
+	this.left = function()
+	{
+		return this.currentLeft;
+	}
+	
+	this.width = function()
+	{
+		return this.htmlElement.offsetWidth;		
+	}
+	
+	this.height = function()
+	{
+		return this.htmlElement.offsetHeight;
+	}
+	
+
+
     this.padding = 5;
     this.repaint = function()
     {
@@ -734,6 +772,8 @@ function Container(htmlElement, canvas)
         left = left - this.padding
         dow = dow + this.padding + this.padding
         rig = rig + this.padding + this.padding
+        this.currentTop = toppy;
+        this.currentLeft = left;
 
         this.htmlElement.style.position = "absolute";
         this.htmlElement.style.top = toppy + "px";
@@ -741,17 +781,30 @@ function Container(htmlElement, canvas)
         this.htmlElement.style.height = (dow - toppy) + "px";
         this.htmlElement.style.width = (rig - left) + "px";
         this.htmlElement.style.zIndex = "1";
-        // this.currentWidth;
-        // this.currentHeight;
-
-        // XXX
     }
 
     this.onMove = function()
     {
+		var i;
         this.repaint();
+		//this.currentLeft = calculateOffsetLeft(this.htmlElement) - this.canvas.offsetLeft;
+		//this.currentTop = calculateOffsetTop(this.htmlElement) - this.canvas.offsetTop;
+		// notify listeners
+		for(i = 0; i < this.moveListeners.length; i++)
+		{
+			this.moveListeners[i].onMove();
+		}
+        // XXX notify? see Blocks
     }
 
+    this.findContainer = function(blockId)
+    {
+        var result;
+        if(this.id == blockId)
+            return this;
+
+        return null;
+    }
 }
 /**
  * Connector class.
@@ -837,14 +890,14 @@ function Connector(htmlElement, canvas)
 		
 		this.connectorClass = splitted[0] + ' ' + splitted[1] + ' ' + splitted[2];
 		
-		this.source = this.canvas.findBlock(splitted[1]);
+		this.source = this.canvas.findBlockOrContainer(splitted[1]);
 		if(!this.source)
 		{
 			alert('cannot find source block with id \'' + splitted[1] + '\'');
 			return;
 		}
 		
-		this.destination = this.canvas.findBlock(splitted[2]);
+		this.destination = this.canvas.findBlockOrContainer(splitted[2]);
 		if(!this.destination)
 		{
 			alert('cannot find destination block with id \'' + splitted[2] + '\'');
