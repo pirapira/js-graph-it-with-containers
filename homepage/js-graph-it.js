@@ -707,32 +707,34 @@ function Container(htmlElement, canvas)
         // calculate the min-max x-y
 
         b = this.blocks[0];
-        toppy = b.top() - this.padding;
-        left = b.left() - this.padding;
-        w = b.width() + this.padding + this.padding;
-        h = b.height() + this.padding + this.padding;
+        toppy = b.top();
+        left = b.left();
+        w = b.width();
+        h = b.height();
         dow = toppy + h;
         rig = left + w;
 
         for(i = 1; i < this.blocks.length; i ++)
         {
             b = this.blocks[i];
-            t_n = b.top() - this.padding;
+            t_n = b.top();
             if(toppy > t_n)
                 toppy = t_n;
-            l_n = b.left() - this.padding;
+            l_n = b.left();
             if(left > l_n)
                 left = l_n;
-            dow_n = b.height() + this.padding + this.padding + t_n;
+            dow_n = b.height() + t_n;
             if(dow < dow_n)
                 dow = dow_n;
-            right_n = b.width() + this.padding + this.padding + l_n;
+            right_n = b.width() + l_n;
             if(rig < right_n)
                 rig = right_n;
         }
+        toppy = toppy - this.padding
+        left = left - this.padding
+        dow = dow + this.padding + this.padding
+        rig = rig + this.padding + this.padding
 
-        //        toppy = toppy + this.canvas.offsetTop;
-        // left = left + this.canvas.offsetLeft;
         this.htmlElement.style.position = "absolute";
         this.htmlElement.style.top = toppy + "px";
         this.htmlElement.style.left = left + "px";
